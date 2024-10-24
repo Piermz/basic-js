@@ -2,15 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Input Nama Siswa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <button type="button" id="myButton">Click me</button>
-</body>
+<body class="bg-gray-100">
+<div class="min-h-full flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <form id="namaForm" class="w-full max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <label for="nama" class="block text-md font-medium leading-6 text-gray-900">Nama</label>
+            <div class="relative mt-2 rounded-md shadow-sm">
+                <input type="text" name="nama" id="nama" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Masukkan Nama Siswa">
+            </div>  
+            <label for="nama" class="block text-md mt-2 font-medium leading-6 text-gray-900">Kelas</label>
+            <div class="relative mt-2 rounded-md shadow-sm">
+                <input type="text" name="kelas" id="kelas" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Masukkan Kelas Siswa">
+            </div>    
+            <button type="submit" class="mt-4 w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">Simpan</button>
+        </div>
+    </form>
+    <div id="tableContainer" class="mt-8 w-full max-w-md"></div>
+</div>
+<!-- <script>
+    document.getElementById('formStudent').addEventListener('submit', function(e) {
+        const name = document.getElementById('nama').value;
+        const tableBody = tableContainer.querySelector('bodyTableStudent');
+    })
+</script> -->
 <script>
-    document.getElementById("myButton").addEventListener("click", function() {
-        alert("Hello World!");
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('namaForm');
+    const tableContainer = document.getElementById('tableContainer');
+    let students = [];
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const namaInput = document.getElementById('nama');
+        const kelasInput = document.getElementById('kelas');
+
+        const nama = namaInput.value.trim();
+        const kelas = kelasInput.value.trim();
+
+        if (nama && kelas) {
+            students.push({ nama, kelas });
+            namaInput.value = '';
+            kelasInput.value = '';
+            updateTable();
+        }
     });
+
+    function updateTable() {
+        let tableHTML = `
+        <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kelas</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+        `;
+
+        students.forEach((student, index) => {
+            tableHTML += `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.nama}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.kelas}</td>
+                </tr>
+            `;
+        });
+
+        tableHTML += `
+            </tbody>
+        </table>
+        `;
+
+        tableContainer.innerHTML = tableHTML;
+    }
+});
 </script>
+
+</body>
 </html>

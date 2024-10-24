@@ -1,4 +1,10 @@
 // Deklarasi variabel
+// let & const
+// nilai let bisa diubah
+// nilai const tidak bisa diubah
+
+
+
 let x = 10;        // Variabel numerik
 let y = 15;        // Variabel numerik
 let z = 20*(x + y);// Variabel numerik hasil perhitungan: 20 * (10 + 15) = 500
